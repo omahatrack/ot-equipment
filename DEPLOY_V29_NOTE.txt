@@ -1,0 +1,8 @@
+OTE Equipment Hub v29
+
+QR Label print correction:
+- Print QR Label now prints only the QR code and equipment/part code beneath it.
+- Uses a dedicated .printLabel container.
+- Print CSS hides all other page content by default, preventing future page sections from leaking into labels.
+- Screen view remains unchanged except the QR code/code are grouped internally for printing.
+- No database migration required.

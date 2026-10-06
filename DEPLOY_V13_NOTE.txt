@@ -1,0 +1,26 @@
+OTE Equipment Hub — GoDaddy Deploy v13
+
+Core feature-completion build.
+
+Added / completed:
+- Persistent equipment photos stored in MySQL EquipmentPhoto (JPG/PNG/WEBP, 8 MB max).
+- Service module: due status, service history, machine hours, selected-interval reset, parts-used inventory ledger updates.
+- Scan module: phone camera via BarcodeDetector where supported, QR/manual/fuzzy equipment and part lookup.
+- Part detail pages with inventory, fitment, vendors, and printable part QR.
+- Vendor module: vendor master, multiple vendor-part links, price, purchase URL, preferred vendor, price history.
+- General Ref module: add/edit/delete reference notes with optional equipment association.
+- Users & Roles module: create/deactivate users, reset passwords, add locations, assign role per location.
+- Location-scoped access: users can have different roles at different locations; sidebar location switch changes active role and data scope.
+- Server-side location checks added to equipment, service, inventory, photo and user-management workflows.
+- /api/health now confirms MySQL connectivity and migration count.
+
+Preserved:
+- GoDaddy reverse-proxy redirect fix.
+- Generated Prisma client shipped with source; no Prisma generate/db push/migrate on GoDaddy.
+- MariaDB allowPublicKeyRetrieval authentication fix.
+- Existing inventory ledger and service-status business rules.
+
+Deployment behavior:
+- prestart applies SQL migrations once via _AppMigration, then idempotent seed.
+- 002_core_modules.sql backfills current users into location access on an existing database.
+- Seed also creates missing location-access rows on a brand-new database without overwriting later admin changes.

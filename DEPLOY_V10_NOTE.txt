@@ -1,0 +1,7 @@
+OTE Equipment Hub - GoDaddy Deploy v10
+Fixes GoDaddy module resolution for the locally generated Prisma client.
+Change:
+- lib/prisma.js now imports ../src/generated/prisma/client.ts explicitly.
+- Generated Prisma source is included in src/generated/prisma.
+- No Prisma CLI generation/migration commands run on GoDaddy.
+- v9 database RSA/public-key retrieval changes are preserved.

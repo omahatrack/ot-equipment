@@ -1,0 +1,255 @@
+generator client {
+  provider       = "prisma-client"
+  output         = "../src/generated/prisma"
+  engineType     = "client"
+  runtime        = "nodejs"
+  moduleFormat   = "esm"
+  importFileExtension = "ts"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+// ---------- Locations & Users ----------
+
+model Location {
+  id        Int      @id @default(autoincrement())
+  name      String   @unique // e.g. "Millard"
+  createdAt DateTime @default(now())
+
+  equipment           Equipment[]
+  partLocationStock   PartLocationInventory[]
+  inventoryTransactions InventoryTransaction[]
+  users               User[]
+}
+
+model Role {
+  id    Int    @id @default(autoincrement())
+  name  String @unique // Admin, Mechanic, Scale House
+  users User[]
+}
+
+model User {
+  id           Int        @id @default(autoincrement())
+  name         String
+  username     String     @unique
+  email        String?    @unique
+  passwordHash String
+  passwordChangedAt DateTime?
+  roleId       Int
+  role         Role       @relation(fields: [roleId], references: [id])
+  locationId   Int?
+  location     Location?  @relation(fields: [locationId], references: [id])
+  createdAt    DateTime   @default(now())
+
+  inventoryTransactions InventoryTransaction[]
+  serviceRecords        ServiceRecord[]
+  machineHoursLogs      MachineHoursLog[]
+}
+
+// ---------- Equipment ----------
+
+model EquipmentType {
+  id        Int      @id @default(autoincrement())
+  name      String   @unique // e.g. "Sennebogen Material Handler"
+  equipment Equipment[]
+  serviceIntervals ServiceInterval[]
+}
+
+model Equipment {
+  id              Int             @id @default(autoincrement())
+  code            String          @unique // e.g. "CM-2", "FL-3", "L-22"
+  displayName     String?         // e.g. "Rogers Mower (Spartan)"
+  equipmentTypeId Int?
+  equipmentType   EquipmentType?  @relation(fields: [equipmentTypeId], references: [id])
+  locationId      Int
+  location        Location        @relation(fields: [locationId], references: [id])
+  status          String          @default("ACTIVE") // ACTIVE | OUT_OF_SERVICE | RETIRED | SOLD | ARCHIVED
+  currentHours    Float           @default(0)
+  qrCode          String          @unique // internal stable ID encoded in the QR
+  imagePath       String?         // uploaded equipment photo path under /assets/uploads
+  createdAt       DateTime        @default(now())
+
+  equipmentParts    EquipmentPart[]
+  machineHoursLogs  MachineHoursLog[]
+  serviceIntervals  ServiceInterval[]
+  serviceRecords    ServiceRecord[]
+  notes             Note[]
+  inventoryTransactions InventoryTransaction[] // usage transactions referencing this equipment
+}
+
+model MachineHoursLog {
+  id          Int      @id @default(autoincrement())
+  equipmentId Int
+  equipment   Equipment @relation(fields: [equipmentId], references: [id])
+  hours       Float
+  recordedAt  DateTime @default(now())
+  userId      Int?
+  user        User?    @relation(fields: [userId], references: [id])
+}
+
+// ---------- Parts ----------
+
+model Part {
+  id                 Int      @id @default(autoincrement())
+  name               String   // e.g. "Oil Filter"
+  internalPartNumber String   @unique
+  unitOfMeasure      String   @default("each")
+  binLocation        String?
+  defaultCost        Float?
+  createdAt          DateTime @default(now())
+
+  crossReferences    PartCrossReference[]
+  equipmentParts     EquipmentPart[]
+  locationStock      PartLocationInventory[]
+  vendorParts        VendorPart[]
+  inventoryTransactions InventoryTransaction[]
+  servicePartsUsed   ServicePartUsed[]
+}
+
+model PartCrossReference {
+  id        Int     @id @default(autoincrement())
+  partId    Int
+  part      Part    @relation(fields: [partId], references: [id])
+  number    String
+  brand     String? // e.g. "Wix", "Fleetguard", "Donaldson", "OEM"
+  type      String  @default("aftermarket") // "OEM" | "aftermarket"
+  isPreferred Boolean @default(false)
+
+  @@unique([partId, number])
+}
+
+model EquipmentPart {
+  id          Int       @id @default(autoincrement())
+  equipmentId Int
+  equipment   Equipment @relation(fields: [equipmentId], references: [id])
+  partId      Int
+  part        Part      @relation(fields: [partId], references: [id])
+  partRole    String?   // e.g. "Air", "Air (inner)", "Fuel", "Oil", "Hydraulic"
+  qtyRequired Int       @default(1)
+
+  @@unique([equipmentId, partId, partRole])
+}
+
+// keep-one-on-hand inventory model
+model PartLocationInventory {
+  id              Int      @id @default(autoincrement())
+  partId          Int
+  part            Part     @relation(fields: [partId], references: [id])
+  locationId      Int
+  location        Location @relation(fields: [locationId], references: [id])
+  onHand          Int      @default(0)
+  keepOnHand      Int      @default(1) // "Target/Keep On Hand" - defaults to 1, editable per part
+  reorderWhenBelow Int     @default(1) // "Reorder point" - defaults to 1
+  status          String   @default("on_hand") // on_hand | needs_reorder | on_order | check (negative)
+
+  @@unique([partId, locationId])
+}
+
+// ---------- Inventory ledger ----------
+
+model InventoryTransaction {
+  id           Int             @id @default(autoincrement())
+  partId       Int
+  part         Part            @relation(fields: [partId], references: [id])
+  locationId   Int
+  location     Location        @relation(fields: [locationId], references: [id])
+  type         String
+  qtyDelta     Int
+  userId       Int?
+  user         User?           @relation(fields: [userId], references: [id])
+  equipmentId  Int?            // set when type = USE
+  equipment    Equipment?      @relation(fields: [equipmentId], references: [id])
+  vendorId     Int?            // set when type = RECEIVE
+  vendor       Vendor?         @relation(fields: [vendorId], references: [id])
+  cost         Float?          // set when type = RECEIVE
+  notes        String?
+  createdAt    DateTime        @default(now())
+
+  servicePartsUsed ServicePartUsed[]
+}
+
+// ---------- Vendors ----------
+
+model Vendor {
+  id          Int      @id @default(autoincrement())
+  name        String   @unique
+  contactInfo String?
+  leadTimeDays Int?
+
+  vendorParts VendorPart[]
+  inventoryTransactions InventoryTransaction[]
+}
+
+model VendorPart {
+  id               Int      @id @default(autoincrement())
+  vendorId         Int
+  vendor           Vendor   @relation(fields: [vendorId], references: [id])
+  partId           Int
+  part             Part     @relation(fields: [partId], references: [id])
+  vendorPartNumber String?
+  price            Float?
+  lastPriceUpdate  DateTime?
+  purchaseUrl      String?
+  isPreferred      Boolean  @default(false)
+
+  @@unique([vendorId, partId])
+}
+
+// ---------- Service ----------
+
+model ServiceInterval {
+  id              Int            @id @default(autoincrement())
+  equipmentId     Int?           // per-machine override
+  equipment       Equipment?     @relation(fields: [equipmentId], references: [id])
+  equipmentTypeId Int?           // default for a type
+  equipmentType   EquipmentType? @relation(fields: [equipmentTypeId], references: [id])
+  description     String         // e.g. "Engine oil service"
+  hoursValue      Int?
+  daysValue       Int?
+  lastServiceHours Float?
+  lastServiceDate  DateTime?
+
+  serviceRecords  ServiceRecord[]
+}
+
+model ServiceRecord {
+  id           Int       @id @default(autoincrement())
+  equipmentId  Int
+  equipment    Equipment @relation(fields: [equipmentId], references: [id])
+  intervalId   Int?
+  interval     ServiceInterval? @relation(fields: [intervalId], references: [id])
+  performedById Int
+  performedBy  User      @relation(fields: [performedById], references: [id])
+  hoursAtService Float
+  serviceDate  DateTime  @default(now())
+  notes        String?
+  manualPartsCost Float   @default(0)
+  laborCost    Float      @default(0)
+  externalCost Float      @default(0)
+
+  partsUsed    ServicePartUsed[]
+}
+
+model ServicePartUsed {
+  id            Int      @id @default(autoincrement())
+  serviceRecordId Int
+  serviceRecord ServiceRecord @relation(fields: [serviceRecordId], references: [id])
+  partId        Int
+  part          Part     @relation(fields: [partId], references: [id])
+  transactionId Int?
+  transaction   InventoryTransaction? @relation(fields: [transactionId], references: [id])
+}
+
+// ---------- Catch-all reference notes ----------
+
+model Note {
+  id          Int        @id @default(autoincrement())
+  title       String
+  body        String
+  equipmentId Int?
+  equipment   Equipment? @relation(fields: [equipmentId], references: [id])
+  createdAt   DateTime   @default(now())
+}

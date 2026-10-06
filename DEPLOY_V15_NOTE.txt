@@ -1,0 +1,8 @@
+OTE Equipment Hub - GoDaddy Deploy v15
+Build reproducibility hardening:
+- Pins @types/react 18.3.24 explicitly.
+- Pins @types/react-dom 18.3.7 explicitly.
+- Preserves all v14 feature-completion changes.
+- Preserves TypeScript support for the generated Prisma client.
+- Preserves reverse-proxy redirect and database-authentication fixes.
+- No Prisma generate/db push/migrate command runs on GoDaddy.

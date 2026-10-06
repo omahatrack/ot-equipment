@@ -1,0 +1,8 @@
+OTE Equipment Hub - GoDaddy Deploy v12
+Hardens the shipped Prisma TypeScript client for GoDaddy.
+- Adds TypeScript as a direct runtime/build dependency.
+- Adds tsconfig.json with bundler resolution and allowImportingTsExtensions.
+- Keeps explicit import: ../src/generated/prisma/client.ts.
+- Keeps the generated Prisma client inside src/generated/prisma.
+- No prisma generate/db push/migrate command runs on GoDaddy.
+- Preserves v11 reverse-proxy redirect fixes and v9 database auth fix.

@@ -1,0 +1,11 @@
+OTE Equipment Hub v33
+
+Changes:
+- Added Dashboard > Needed Service section below the existing dashboard panels.
+- Shows only service intervals that are Due Soon or Overdue for the active location.
+- Overdue service is listed first, then due-soon service.
+- Each service row links directly to the equipment record.
+- Fixed Equipment Detail QR panel alignment so the QR code, equipment ID, equipment name, print button and hint are centered as one unit.
+- Printed QR labels remain QR code + Equipment ID only.
+- No database migration required.
+- SMTP remains a production environment configuration item; password-reset code is unchanged.

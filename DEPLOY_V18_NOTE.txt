@@ -1,0 +1,12 @@
+OTE Equipment Hub — GoDaddy Deploy v18
+
+Final walkthrough purchasing/admin fixes:
+- Added Default Unit Cost to existing Parts inventory records.
+- Existing Part vendor sources can now be edited for vendor part number, unit price, purchase URL, and preferred status.
+- New Vendor can be created directly from Edit Part and returns to that part with the vendor selected.
+- Vendor detail page now supports editing existing linked Vendor Parts in place.
+- Vendor price changes continue to create VendorPriceHistory entries automatically.
+- New locations now grant Admin access to every global Admin user, not only the creator.
+- SMTP remains an environment configuration item; manual password reset remains available.
+
+Database migration added: 004_purchasing_workflow.sql

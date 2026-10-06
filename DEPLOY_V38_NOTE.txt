@@ -1,0 +1,27 @@
+OTE Equipment Hub v38
+
+Major changes
+- Supabase Storage is now the permanent file store for new service documents and equipment photos.
+- The old Sharedrive import feature was removed completely.
+- Existing database-stored files remain readable and can be migrated to Supabase from Admin > System Status.
+- Added document categories: Invoice, Service Record, Inspection, Warranty, Manual, Photo, Other.
+- Added Admin Audit Log and System Status pages.
+- Added dashboard service KPIs for overdue and due-within-100-hours/30-days.
+- Added lower-hour correction protection and last hours-update user/date on Equipment Detail.
+- Added migration 008_supabase_storage_audit.sql.
+
+Required production environment settings for Supabase files
+SUPABASE_URL=<your Supabase project URL>
+SUPABASE_SECRET_KEY=<server-side secret key; sb_secret_...>
+SUPABASE_STORAGE_BUCKET=equipment-documents
+
+The Supabase secret key must remain server-side only and must never be exposed in browser/client code.
+For backward compatibility, the app will still accept the legacy SUPABASE_SERVICE_ROLE_KEY if one is already configured.
+The app will create the private equipment-documents bucket automatically on first upload if it does not already exist.
+
+After deployment
+1. Sign in as Admin.
+2. Open System Status.
+3. Confirm Supabase Storage shows Ready.
+4. If legacy files are listed, use Move Existing Files to Supabase.
+5. Upload/open/remove a test service document and equipment photo.

@@ -1,0 +1,27 @@
+OTE EQUIPMENT HUB — GODADDY DEPLOYMENT
+
+1. In GoDaddy Node.js Hosting, create a new Preview App.
+2. Choose Upload a zip.
+3. App name: OTE Equipment Hub
+4. Upload this ZIP.
+5. Add one secret only: SESSION_SECRET (long random value).
+6. GoDaddy automatically injects DB_HOST, DB_PORT, DB_NAME, DB_USER, DB_PASSWORD.
+7. Continue and wait for build/start.
+
+Expected first-start logs:
+- OTE database bootstrap: connecting to GoDaddy MySQL...
+- Applying database migration 001_initial.sql...  (first run only)
+- Seed complete.
+- OTE database bootstrap complete.
+- Next.js Ready
+
+Architecture:
+- Next.js 14.2.35, Node 22
+- GoDaddy managed MySQL
+- Prisma 6.16.3 with engineType=client
+- @prisma/adapter-mariadb JavaScript driver adapter
+- No native Prisma Rust query engine / no OpenSSL engine dependency
+- No prisma db push or migrate command at runtime
+
+Health check after deploy:
+  /api/health

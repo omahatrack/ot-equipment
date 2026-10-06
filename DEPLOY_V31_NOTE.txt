@@ -1,0 +1,11 @@
+OTE Equipment Hub v31
+
+Production startup reliability fix:
+- Detects incomplete/missing Next.js production build artifacts.
+- Removes a partial .next directory when detected.
+- Runs a clean Next.js production build automatically before `next start`.
+- Verifies BUILD_ID, prerender-manifest.json and routes-manifest.json exist before serving.
+- Keeps database bootstrap/migrations before build so build-time routes see the current schema.
+
+This specifically addresses GoDaddy PaaS publishing a preview bundle, skipping its build step, and then failing at startup with:
+ENOENT: /app/.next/prerender-manifest.json

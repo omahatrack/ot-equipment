@@ -1,0 +1,12 @@
+OTE Equipment Hub v43
+
+Final Equipment Detail polish:
+- Equipment photos use object-fit: contain so the full machine is visible, especially on phones.
+- Desktop Service History reduced from 12 columns to a compact 9-column layout.
+- Parts/Labor/Outside costs are grouped into one Costs column.
+- Desktop Service History no longer relies on horizontal scrolling.
+- Service Documents spacing tightened.
+- Service Intervals no longer stretches to match the taller Parts card.
+- Quick Update Hours styling refined.
+- All v42 mobile drawer/accordion improvements retained.
+- No database migration required.
