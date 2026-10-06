@@ -23,3 +23,8 @@ GoDaddy production startup fix.
 
 ## v38
 Supabase Storage now uses `SUPABASE_SECRET_KEY` (`sb_secret_...`) for server-side access. Legacy `SUPABASE_SERVICE_ROLE_KEY` remains supported as a fallback. New secret keys are sent in the `apikey` header rather than as a Bearer JWT.
+
+## v46 GoDaddy dependency hardening
+- Runtime packages `mariadb`, `nodemailer`, `@prisma/adapter-mariadb`, and `@prisma/client` remain explicit production dependencies.
+- Added a `prebuild` dependency check that automatically runs a production `npm install` if GoDaddy's cached build environment is missing any required runtime package.
+- The Prisma client used by the application is already generated and committed under `src/generated/prisma`, so deployment does not depend on a separate Prisma generation step.

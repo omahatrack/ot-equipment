@@ -1,12 +1,13 @@
 {
   "name": "ote-equipment-hub",
-  "version": "0.1.45-godaddy-deploy-v45",
+  "version": "0.1.46-godaddy-deploy-v46",
   "private": true,
   "type": "module",
   "engines": {
     "node": "22.x"
   },
   "scripts": {
+    "prebuild": "node scripts/ensure-runtime-deps.mjs",
     "build": "next build",
     "start": "node scripts/start-godaddy.mjs",
     "test:rules": "node --test lib/*.test.mjs"
