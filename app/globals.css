@@ -331,3 +331,51 @@
 @media(max-width:650px){
   .serviceHistoryCard td:nth-child(8){font-size:13px;color:inherit}
 }
+
+/* v45 dashboard cockpit refresh */
+.dashboardKpiGrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.dashboardKpi{min-height:118px;border-radius:14px;padding:18px 20px;display:flex;flex-direction:column;justify-content:center;border:1px solid var(--line);box-shadow:0 8px 24px rgba(16,24,40,.07);transition:transform .15s ease,box-shadow .15s ease}
+.dashboardKpi:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(16,24,40,.12)}
+.dashboardKpi span{font-size:13px;font-weight:900;text-transform:uppercase;letter-spacing:.025em}
+.dashboardKpi strong{font-size:43px;line-height:1;margin:8px 0 6px;letter-spacing:-.035em}
+.dashboardKpi small{font-size:12px;opacity:.78}
+.dashboardKpi.kpiDanger{background:linear-gradient(135deg,#c92218,#e21b23);color:#fff;border-color:#bd1d17}
+.dashboardKpi.kpiDark{background:linear-gradient(145deg,#282c31,#171a1f);color:#fff;border-color:#24282d}
+.dashboardKpi.kpiAmber{background:linear-gradient(135deg,#ffc53d,#ffb31a);color:#111;border-color:#f0a600}
+.dashboardKpi.kpiPlain{background:#fff;color:#101828;border-top:4px solid var(--red)}
+.dashboardServiceStrip{display:grid;grid-template-columns:220px 300px 1fr;gap:12px;margin-top:14px}
+.dashboardServiceStat,.dashboardHealth{min-height:68px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 16px;display:flex;align-items:center;box-shadow:0 5px 18px rgba(16,24,40,.05)}
+.dashboardServiceStat{justify-content:space-between;border-left:4px solid #d0d5dd;font-weight:800}
+.dashboardServiceStat strong{font-size:27px}
+.dashboardServiceStat.hasAlert{border-left-color:var(--red);background:#fff8f7}
+.dashboardServiceStat.hasWarning{border-left-color:#f59e0b;background:#fffcf5}
+.dashboardHealth{gap:12px;flex-direction:column;align-items:flex-start;justify-content:center}
+.dashboardHealth b{font-size:15px}.dashboardHealth span{font-size:12px;color:var(--muted)}
+.dashboardHealth.clear{border-left:4px solid var(--green)}.dashboardHealth.attention{border-left:4px solid var(--red)}
+.dashboardMainGrid{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(340px,.85fr);gap:18px;margin-top:18px;align-items:start}
+.dashboardRightRail{display:grid;gap:18px}
+.dashboardCardHeader{display:flex;justify-content:space-between;gap:16px;align-items:flex-start;margin-bottom:14px}
+.dashboardCardHeader h2{margin:0 0 4px}.dashboardCardHeader .muted{font-size:13px}
+.dashboardEquipmentCard{padding-bottom:8px}
+.dashboardEquipmentList{border-top:1px solid var(--line)}
+.dashboardEquipmentRow{display:grid;grid-template-columns:minmax(0,1fr) 90px 22px;align-items:center;gap:12px;padding:12px 8px;border-bottom:1px solid #eef0f3;border-radius:8px}
+.dashboardEquipmentRow:hover{background:#f8fafc}
+.dashboardUnit{display:grid;grid-template-columns:100px minmax(0,1fr);gap:12px;align-items:center;min-width:0}
+.dashboardUnit b{font-size:15px}.dashboardUnit span{color:#344054;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dashboardHours{text-align:right}.dashboardHours strong{font-size:15px}.dashboardHours span{font-size:11px;color:var(--muted);margin-left:4px;text-transform:uppercase}
+.dashboardRowArrow{font-size:24px;color:#98a2b3;text-align:right}
+.dashboardQuickGrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.dashboardQuickAction{border:1px solid var(--line);border-radius:10px;padding:13px 34px 13px 13px;position:relative;display:flex;flex-direction:column;gap:4px;min-height:78px;background:#fff}
+.dashboardQuickAction:hover{border-color:#d92d20;background:#fff8f7}
+.dashboardQuickAction b{font-size:14px}.dashboardQuickAction span{font-size:12px;color:var(--muted);line-height:1.25}.dashboardQuickAction em{position:absolute;right:12px;top:50%;transform:translateY(-50%);font-style:normal;font-size:24px;color:var(--red)}
+.dashboardActivityList{display:grid}
+.dashboardActivityRow{display:flex;justify-content:space-between;gap:14px;padding:12px 2px;border-bottom:1px solid #eef0f3}
+.dashboardActivityRow>div{display:grid;gap:3px}.dashboardActivityRow b{font-size:14px}.dashboardActivityRow span{font-size:12px;color:var(--muted);text-transform:capitalize}.dashboardActivityRow small{color:#475467;white-space:nowrap}
+.dashboardEmptyMini{padding:18px 0;color:var(--muted);font-size:13px}
+.dashboardServiceCardV45{margin-top:18px}.dashboardServiceCardV45.isClear{padding-bottom:18px}
+.dashboardAllClear{display:flex;align-items:center;justify-content:center;gap:14px;border:1px dashed #cfd8d3;background:#f6fef9;border-radius:10px;padding:17px;margin-top:4px}
+.dashboardCheck{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;background:#dcfae6;color:var(--green);font-weight:900}
+.dashboardAllClear>div{display:grid;gap:3px}.dashboardAllClear b{font-size:14px}.dashboardAllClear span{font-size:12px;color:var(--muted)}
+@media(max-width:1180px){.dashboardServiceStrip{grid-template-columns:1fr 1fr}.dashboardHealth{grid-column:1/-1}.dashboardMainGrid{grid-template-columns:1fr}.dashboardRightRail{grid-template-columns:1fr 1fr}}
+@media(max-width:900px){.dashboardKpiGrid{grid-template-columns:1fr 1fr}.dashboardRightRail{grid-template-columns:1fr}.dashboardEquipmentRow{grid-template-columns:minmax(0,1fr) 82px 18px}}
+@media(max-width:560px){.dashboardKpiGrid{gap:10px}.dashboardKpi{min-height:96px;padding:14px}.dashboardKpi strong{font-size:34px}.dashboardKpi small{display:none}.dashboardServiceStrip{grid-template-columns:1fr}.dashboardHealth{grid-column:auto}.dashboardServiceStat{min-height:56px}.dashboardMainGrid{margin-top:12px}.dashboardQuickGrid{grid-template-columns:1fr}.dashboardUnit{grid-template-columns:75px minmax(0,1fr);gap:8px}.dashboardEquipmentRow{padding:11px 2px}.dashboardEquipmentCard{padding:14px}.dashboardServiceCardV45 .tablewrap{overflow:auto}}
