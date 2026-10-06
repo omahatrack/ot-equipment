@@ -1,0 +1,8 @@
+OTE Equipment Hub v42
+- Fixes mobile working-location Switch button clipping on narrow iPhones.
+- Replaces the details-based phone navigation with a proper drawer, backdrop and close button.
+- Drawer closes when a navigation item is selected and supports Escape on keyboards.
+- Mobile header is sticky.
+- Equipment accordion headers have larger tap targets and show useful counts.
+- No database migration required.
+- Equipment detail accordions default closed on phones to keep the page short.

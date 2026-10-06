@@ -1,0 +1,7 @@
+OTE Equipment Hub v24
+- Record service / add service documents directly from Equipment Detail.
+- Allows General Service / Document Only records without creating a service interval first.
+- Adds optional equipment mileage tracking for future vehicles.
+- Mileage remains hidden on operational views unless Track Mileage is enabled for that equipment.
+- Adds current mileage log history table.
+- Migration: 006_optional_mileage.sql

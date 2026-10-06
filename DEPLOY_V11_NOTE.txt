@@ -1,0 +1,7 @@
+OTE Equipment Hub - GoDaddy Deploy v11
+Fixes reverse-proxy redirect URLs.
+- Login/logout and form POST redirects now use relative Location headers.
+- Browser resolves redirects against the public GoDaddy preview/custom domain.
+- Middleware derives public origin from x-forwarded-host/x-forwarded-proto.
+- Prevents redirects to internal 0.0.0.0:<PORT> addresses.
+- v10 Prisma and v9 database-authentication fixes are preserved.

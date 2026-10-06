@@ -1,0 +1,8 @@
+OTE Equipment Hub v47
+
+Known-good baseline: v44.
+
+This package intentionally preserves v44 package.json, package-lock.json, build scripts, and dependency configuration exactly as-is.
+Only the dashboard UI refresh and explicit public/versioned favicon assets from the later UI pass were applied.
+No dependency installer/prebuild changes from v45/v46 are included.
+No database migration required.

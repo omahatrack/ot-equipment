@@ -1,0 +1,1 @@
+v36 fixes the Quick Update Hours API authentication import. The route now imports requireApiUser from lib/apiAuth and userCanAccessLocation from lib/session, matching all other protected API routes. No database migration required.

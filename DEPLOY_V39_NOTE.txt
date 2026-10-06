@@ -1,0 +1,10 @@
+OTE Equipment Hub v39
+
+QR deep-link fix:
+- Equipment QR codes point directly to /equipment/{id} on the permanent Equipment Hub domain.
+- If a scanner is not signed in, login preserves the requested equipment page and returns there after authentication.
+- Invalid login attempts preserve the requested destination.
+- Existing logged-in users opening a login URL with ?next= are sent to the requested page.
+- New labels generated from preview use the permanent equipment.omahatrack.com base URL by default.
+
+No database migration required.

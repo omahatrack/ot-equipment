@@ -1,0 +1,7 @@
+OTE Equipment Hub - GoDaddy Deploy v16
+Startup health fix:
+- Preserves the v15 package-lock.json dependency fix.
+- Removes the separate npm prestart lifecycle hook.
+- Runs database bootstrap and Next.js launch from one startup process.
+- Prevents GoDaddy from ending startup after database bootstrap completes.
+- Preserves all v14/v15 walkthrough, permissions, Inventory, Edit Part, service history, reports, password reset, Vendors, General Ref, user/location, and dependency changes.

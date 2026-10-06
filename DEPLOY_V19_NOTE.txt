@@ -1,0 +1,11 @@
+OTE Equipment Hub - GoDaddy Deploy v19
+
+Dashboard KPI visual refresh based on approved walkthrough mockup:
+- Needs Reorder is now a high-urgency red KPI card.
+- Check Inventory is now a high-visibility amber KPI card.
+- On Order uses a strong charcoal treatment.
+- Equipment stays neutral with a red top accent.
+- Larger metric values, stronger hierarchy, subtle KPI icons and improved shadow/spacing.
+- Responsive behavior retained for tablet/mobile.
+
+All v18 purchasing, vendor, permissions, service, inventory, QR and deployment fixes are preserved.

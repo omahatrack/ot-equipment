@@ -1,0 +1,10 @@
+OTE Equipment Hub v26
+
+Adds:
+- Global search from every authenticated screen across equipment, parts, cross-references, vendors, service records, service documents and General Ref (respecting location/role access).
+- Attachment management: rename, edit notes, replace file, open and remove service documents. Service date remains editable through Edit Service Record so document/service history stays aligned.
+- Admin Sharedrive/OneDrive bulk import workflow: select a synchronized Microsoft folder, auto-match files to equipment codes in filenames/folder paths, preview matched/unmatched items, and bulk import matched PDF/image records without altering the source Sharedrive.
+- Import never guesses unmatched equipment.
+- Existing v25 service-history editing and all previous functionality retained.
+
+Future direct SharePoint/Teams import can use Microsoft Graph without changing the core document model.

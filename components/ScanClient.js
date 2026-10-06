@@ -1,0 +1,9 @@
+'use client';
+import {useEffect,useRef,useState} from 'react';
+export default function ScanClient(){
+  const videoRef=useRef(null),streamRef=useRef(null),timerRef=useRef(null);const [status,setStatus]=useState('');
+  async function stop(){if(timerRef.current)clearInterval(timerRef.current);timerRef.current=null;if(streamRef.current){for(const t of streamRef.current.getTracks())t.stop();streamRef.current=null}}
+  async function start(){setStatus('Starting camera…');if(!('BarcodeDetector' in window)){setStatus('Camera QR detection is not supported in this browser. Use the search box below.');return}try{const formats=await BarcodeDetector.getSupportedFormats();if(!formats.includes('qr_code')){setStatus('QR detection is not supported in this browser. Use the search box below.');return}const detector=new BarcodeDetector({formats:['qr_code']});const stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:{ideal:'environment'}}});streamRef.current=stream;videoRef.current.srcObject=stream;await videoRef.current.play();setStatus('Point the camera at an OTE equipment or part QR code.');timerRef.current=setInterval(async()=>{try{const codes=await detector.detect(videoRef.current);if(codes?.[0]?.rawValue){await stop();window.location.href=`/scan?q=${encodeURIComponent(codes[0].rawValue)}`}}catch{}},450)}catch(e){setStatus(`Camera unavailable: ${e.message||'permission denied'}`)}}
+  useEffect(()=>()=>{stop()},[]);
+  return <div className="stack"><div className="scanCamera"><video ref={videoRef} muted playsInline/><span>{!streamRef.current?'Camera preview':''}</span></div><div className="rowActions"><button className="btn primary" type="button" onClick={start}>Start Camera</button><button className="btn" type="button" onClick={stop}>Stop</button></div><div className="muted">{status}</div></div>
+}

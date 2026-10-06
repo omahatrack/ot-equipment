@@ -1,0 +1,5 @@
+OTE Equipment Hub v23
+- Makes service document attachments obvious on Equipment Detail.
+- Adds dedicated Service Documents section grouped by service event.
+- Promotes upload action to a visible red Upload Service Document control.
+- Preserves document name, service date context, automatic upload date and notes.

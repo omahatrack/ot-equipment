@@ -1,0 +1,13 @@
+OTE Equipment Hub v40
+
+Mobile Equipment Detail usability update:
+- Compact equipment hero and QR area for phones.
+- Two-column KPI layout on mobile instead of four tall stacked cards.
+- Equipment parts render as readable mobile cards rather than a squeezed table.
+- Service interval spacing/type adjusted for mobile.
+- Service document controls made touch-friendly.
+- Service History rows render as labeled mobile cards with no horizontal table scroll.
+- Quick Hours editor is phone-safe and opens centered on screen.
+- Desktop/tablet behavior remains unchanged.
+
+No database migration required.

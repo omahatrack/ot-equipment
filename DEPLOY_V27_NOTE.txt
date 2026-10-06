@@ -1,0 +1,5 @@
+OTE Equipment Hub v27
+- Rebuilt package metadata for GoDaddy production dependency install.
+- next 14.2.35 is explicitly in dependencies, not devDependencies.
+- package-lock.json regenerated with npm install --package-lock-only and matches package.json.
+- No node_modules included.

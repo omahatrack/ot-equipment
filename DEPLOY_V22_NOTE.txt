@@ -1,0 +1,19 @@
+OTE Equipment Hub v22
+
+Service-document enhancement:
+- Service records now have an explicit Service Date field.
+- PDFs and service images can be attached while recording service.
+- Existing service records can receive documents later.
+- Each attachment has a human-readable document name.
+- Optional document notes support invoice/work-order/vendor references.
+- Upload date is recorded automatically.
+- Documents display inside Service History and Equipment Service History.
+- Authorized Admin/Mechanic users can open or remove attachments.
+- Attachments inherit the service record's service date rather than maintaining a conflicting second service date.
+- Files are stored in the application database and protected by the same location permissions as the equipment.
+- Allowed: PDF, JPG, PNG, WEBP; maximum 15 MB per file.
+
+Database migration added:
+005_service_attachments.sql
+
+All v21 functionality retained.

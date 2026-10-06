@@ -1,0 +1,6 @@
+OTE Equipment Hub — GoDaddy Deploy v17
+
+Fix: startup bootstrap process now explicitly closes the shared MariaDB SQL pool used by seed.mjs.
+This allows scripts/bootstrap-db.mjs to exit cleanly so scripts/start-godaddy.mjs can launch Next.js.
+
+Preserves v16/v15 functionality and package-lock.json.

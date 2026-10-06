@@ -1,0 +1,25 @@
+OTE Equipment Hub — GoDaddy Deploy v14
+
+Walkthrough improvements included:
+- Renamed Scale House navigation to Inventory and added /inventory.
+- Part detail now includes Edit Part, quick inventory actions, and transaction history.
+- Part edit supports metadata, reorder targets, cross references, equipment fitment, and vendor sources.
+- Service recording now uses a checkbox picker limited to parts linked to the equipment.
+- Service recording captures labor and outside repair cost.
+- Equipment detail now shows service history and tracked lifetime cost metrics.
+- Added Reports module for cost by equipment, part usage, and vendor spend.
+- User accounts now support email addresses and login by username or email.
+- Added Forgot Password and secure single-use reset-token flow.
+- Admin can send a password reset email or still perform a manual reset.
+- Existing v13 location-scoped permissions, persistent photos, Prisma client, reverse-proxy redirects, and database fixes are preserved.
+
+EMAIL DELIVERY
+Forgot Password is implemented, but outbound delivery requires SMTP environment variables in GoDaddy:
+SMTP_HOST
+SMTP_PORT (normally 587)
+SMTP_SECURE (true/false; normally false for STARTTLS on port 587)
+SMTP_USER
+SMTP_PASSWORD
+SMTP_FROM
+
+Do not guess these values. Use the approved Omaha Track / Microsoft 365 SMTP configuration before production.

@@ -1,0 +1,3 @@
+OTE Equipment Hub v25
+
+Adds editable Service History records. Admins and Mechanics can correct service date, service type, hours at service, labor cost, outside/repair cost, and notes directly from Equipment Detail. Parts Used remain locked because they are tied to inventory transactions. Service interval last-service values are recalculated after edits. Equipment current hours are only corrected automatically when the edited service record was still the source of the current hour reading.

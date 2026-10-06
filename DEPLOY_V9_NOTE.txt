@@ -1,0 +1,6 @@
+OTE Equipment Hub - GoDaddy Deploy v9
+Direct deployment package based on locally generated v8 client.
+Changes from v8:
+- Enabled allowPublicKeyRetrieval for the Prisma/MariaDB adapter connection.
+- Enabled allowPublicKeyRetrieval for the bootstrap migration/seed connection.
+- No Prisma generate/db push/migrate commands are run on GoDaddy.
