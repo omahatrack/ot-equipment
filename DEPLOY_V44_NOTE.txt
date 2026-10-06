@@ -1,1 +1,0 @@
-v44: Adds OTE favicon/icon assets (app/favicon.ico, app/icon.png, app/apple-icon.png) based on the approved OTE logo. No database migration required.

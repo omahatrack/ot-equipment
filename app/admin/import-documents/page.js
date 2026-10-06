@@ -1,7 +1,0 @@
-import AppShell from '../../../components/AppShell';
-import SharedriveImport from '../../../components/SharedriveImport';
-import {getCurrentUser} from '../../../lib/session';
-import {sql} from '../../../lib/db';
-import {notFound} from 'next/navigation';
-export const dynamic='force-dynamic';
-export default async function ImportDocuments(){const user=await getCurrentUser();if(user?.role?.name!=='Admin')notFound();const equipment=await sql(`SELECT id,code,displayName FROM Equipment WHERE locationId=? AND UPPER(TRIM(status))<>'ARCHIVED' ORDER BY code`,[user.locationId]);return <AppShell title="Sharedrive Document Import" active="Users & Roles"><div className="card"><div className="toolbar"><div><h2>Bulk Service Document Import</h2><div className="muted">Copies matched PDFs/images into Equipment Hub without deleting or changing the original Sharedrive files.</div></div></div><SharedriveImport equipment={equipment}/><div className="importHelp"><h3>How matching works</h3><p>Put the unit/equipment code somewhere in the folder path or filename — for example <b>Equipment / SC-7 / 2026 / Invoice.pdf</b>. The importer uses the file date or a date found in the path and creates a document-only service record. Unmatched files are never guessed or imported.</p><p className="muted">For SharePoint/Teams libraries that are not synchronized to a computer, a future Microsoft Graph connection can pull the files directly.</p></div></div></AppShell>}

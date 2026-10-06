@@ -1,5 +1,0 @@
-OTE Equipment Hub v45
-- Explicit favicon metadata with cache-busting version query.
-- Copies favicon/app icons into public/ for direct browser access.
-- Dashboard cockpit refresh: compact KPI cards, maintenance health strip, quick actions, improved equipment list, recent inventory rail, compact all-clear service state.
-- No database migration required.
