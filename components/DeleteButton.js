@@ -1,2 +1,0 @@
-'use client';import {useRouter} from 'next/navigation';
-export default function DeleteButton({url,label='Remove',confirmText='Remove this item?'}){const r=useRouter();return <button type="button" className="btn danger" onClick={async()=>{if(!confirm(confirmText))return;const res=await fetch(url,{method:'DELETE'});if(!res.ok){alert((await res.json().catch(()=>({}))).error||'Could not remove item.');return}r.refresh()}}>{label}</button>}
